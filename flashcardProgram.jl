@@ -38,9 +38,16 @@ while (newOpenOrQuit != "Quit")
             something like "What do you want to call this deck? This will be the filename where
             the individual flashcards are saved"
             =#
+            println("What do you want to call this deck?")
+            println("This is the name the deck will save with")
+            deckName = readline()
+            deckFileName = deckName + ".txt"
+            open(deckFileName, "w") do file
+
             println("How many flashcards do you want in this deck?")
-            numberOfCards = readline()
-            deckOne = Array{Flashcard, numberOfCards}
+            numberOfCardsString = readline()
+            numberOfCardsInt = parse(Int, numberOfCardsString)
+            deckOne = Array{Flashcard}(undef, numberOfCardsInt)
         end
 
         # if user wants to open an existing deck of flashcards
