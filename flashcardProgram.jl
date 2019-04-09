@@ -41,13 +41,17 @@ while (newOpenOrQuit != "Quit")
             println("What do you want to call this deck?")
             println("This is the name the deck will save with")
             deckName = readline()
-            deckFileName = deckName + ".txt"
+            deckFileName = string(deckName, ".txt")
+            println(deckFileName)
             open(deckFileName, "w") do file
+                #write(file, "here is some random text")
+            end
 
             println("How many flashcards do you want in this deck?")
             numberOfCardsString = readline()
             numberOfCardsInt = parse(Int, numberOfCardsString)
             deckOne = Array{Flashcard}(undef, numberOfCardsInt)
+            println(size(deckOne))
         end
 
         # if user wants to open an existing deck of flashcards
