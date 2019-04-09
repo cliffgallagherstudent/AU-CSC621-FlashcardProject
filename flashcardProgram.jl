@@ -4,12 +4,12 @@ import .Flashcard
 include("DeckOfFlashcards.jl")
 import .DeckOfFlashcards
 
-println("hello wurld")
+println("hello", " wurld")
 
-try
+#=try
     mkdir("current_decks")
 catch
-end
+end=#
 
 newOpenOrQuit = "default"
 while (newOpenOrQuit != "Quit")
@@ -50,12 +50,23 @@ while (newOpenOrQuit != "Quit")
             println("How many flashcards do you want in this deck?")
             numberOfCardsString = readline()
             numberOfCardsInt = parse(Int, numberOfCardsString)
+            #println(numberOfCardsInt)
             deckOne = Array{Flashcard}(undef, numberOfCardsInt)
-            println(size(deckOne))
+            println("There will be ", numberOfCardsString,  " cards in this deck.")
+            open(deckFileName, "w") do file
+                for i = 1:numberOfCardsInt
+                    println("What do you want card ", i, ", side one, to say?")
+                    cardSideOne = readline()
+                    println("What do you want card ", i, ", side two, to say?")
+                    cardSideTwo = readline()
+                    flashcard = Flashcard(cardSideOne, cardSideTwo)
+                        write(file, cardSideOne, "\n", cardSideTwo, "\n")
+                end
+            end
         end
 
         # if user wants to open an existing deck of flashcards
         if (newOpenOrQuit == "Open")
+            
         end
-
 end
