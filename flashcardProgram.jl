@@ -47,6 +47,8 @@ while (newOpenOrQuit != "Quit")
                 #write(file, "here is some random text")
             end
 
+            #mv(abspath(deckFileName), abspath("current_decks"), force=true)
+
             println("How many flashcards do you want in this deck?")
             numberOfCardsString = readline()
             numberOfCardsInt = parse(Int, numberOfCardsString)
@@ -67,6 +69,13 @@ while (newOpenOrQuit != "Quit")
 
         # if user wants to open an existing deck of flashcards
         if (newOpenOrQuit == "Open")
-            
+            println("Here are the available decks to open:")
+            for (root, dir, files) in walkdir(".")
+                for file in files
+                    if (occursin(".txt", file))
+                        println(file)
+                    end
+                end
+            end
         end
 end
