@@ -77,5 +77,32 @@ while (newOpenOrQuit != "Quit")
                     end
                 end
             end
+            println("Type the name of the file you want to open.")
+            chosenDeck = readline()
+
+            # choose the deck the user typed
+            for (root, dir, files) in walkdir(".")
+                for file in files
+                    if (occursin(chosenDeck, file))
+
+                        #read in the data from the deck the user chose
+                        open(chosenDeck) do file
+
+                            # go line-by-line
+                            i = 1
+                            for line in eachline(file)
+                                if ((i % 2) != 0)
+                                    println("Question:")
+                                else
+                                    println("Answer:")
+                                end
+                                println(line)
+                                i += 1
+                            end
+                        end
+
+                    end
+                end
+            end
         end
 end
