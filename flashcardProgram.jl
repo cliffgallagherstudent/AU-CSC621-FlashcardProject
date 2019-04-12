@@ -84,23 +84,36 @@ while (newOpenOrQuit != "Quit")
             for (root, dir, files) in walkdir(".")
                 for file in files
                     if (occursin(chosenDeck, file))
+                        try
+                            #read in the data from the deck the user chose
+                            open(chosenDeck) do file
 
-                        #read in the data from the deck the user chose
-                        open(chosenDeck) do file
-
-                            # go line-by-line
-                            i = 1
-                            for line in eachline(file)
-                                if ((i % 2) != 0)
-                                    println("Question:")
-                                else
-                                    println("Answer:")
+                                # go line-by-line
+                                i = 1
+                                questionOrAnswer = "temp"
+                                for line in eachline(file)
+                                    if ((i % 2) != 0)
+                                        #println("Question:")
+                                        questionOrAnswer = "Question:"
+                                    else
+                                        #println("Answer:")
+                                        questionOrAnswer = "Answer:"
+                                    end
+                                    println(questionOrAnswer)
+                                    displayedText = line
+                                    println(line)
+                                    i += 1
+                                    println("Enter \"Continue\" to continue")
+                                    nextCard = readline()
+                                    while (nextCard != "Continue")
+                                        println("Invalid\n", questionOrAnswer, "\n", displayedText, "\nEnter \"Continue\" to continue")
+                                        nextCard = readline()
+                                    end
                                 end
-                                println(line)
-                                i += 1
                             end
+                        catch
+                            println("File does not exist.")
                         end
-
                     end
                 end
             end
