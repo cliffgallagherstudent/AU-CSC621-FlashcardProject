@@ -1,15 +1,7 @@
-include("Flashcard.jl")
-import .Flashcard
-
-include("DeckOfFlashcards.jl")
-import .DeckOfFlashcards
-
-println("hello", " wurld")
-
-#=try
-    mkdir("current_decks")
-catch
-end=#
+struct Flashcard
+    sideOne::String
+    sideTwo::String
+end
 
 newOpenOrQuit = "default"
 while (newOpenOrQuit != "Quit")
@@ -25,34 +17,18 @@ while (newOpenOrQuit != "Quit")
 
         # if user wants to create a new deck of flashcards
         if (newOpenOrQuit == "New")
-            #=
-            println("What do you want to call this deck?")
-            deckName = readline()
-            deckOne = DeckOfFlashcards("deckName", Flashcard[])=#
 
-
-            #= Instead of having a DeckOfFlashcards object:
-            If I ask the user how many flashcards they want in the deck, I can create an array
-            of that many flashcard objects
-            Do I need a deckName? Or can I get away with just a filename? Maybe
-            something like "What do you want to call this deck? This will be the filename where
-            the individual flashcards are saved"
-            =#
             println("What do you want to call this deck?")
             println("This is the name the deck will save with")
             deckName = readline()
             deckFileName = string(deckName, ".txt")
             println(deckFileName)
             open(deckFileName, "w") do file
-                #write(file, "here is some random text")
-            end
-
-            #mv(abspath(deckFileName), abspath("current_decks"), force=true)
+        end
 
             println("How many flashcards do you want in this deck?")
             numberOfCardsString = readline()
             numberOfCardsInt = parse(Int, numberOfCardsString)
-            #println(numberOfCardsInt)
             deckOne = Array{Flashcard}(undef, numberOfCardsInt)
             println("There will be ", numberOfCardsString,  " cards in this deck.")
             open(deckFileName, "w") do file
@@ -93,10 +69,8 @@ while (newOpenOrQuit != "Quit")
                                 questionOrAnswer = "temp"
                                 for line in eachline(file)
                                     if ((i % 2) != 0)
-                                        #println("Question:")
                                         questionOrAnswer = "Question:"
                                     else
-                                        #println("Answer:")
                                         questionOrAnswer = "Answer:"
                                     end
                                     println(questionOrAnswer)
